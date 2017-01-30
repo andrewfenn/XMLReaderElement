@@ -69,8 +69,7 @@ class XMLReaderElement implements \Iterator {
     }
 
     protected function convertAttributes($attributes) {
-        foreach($attributes as $k=>$attribute)
-        {
+        foreach($attributes as $k=>$attribute) {
             $attributes[$k] = $this->convertValue($attribute);
         }
 
@@ -78,18 +77,18 @@ class XMLReaderElement implements \Iterator {
     }
 
     protected function convertValue($value) {
-        if (is_string($value))
-        {
-            if ($this->isBool($value))
-            {
-                return filter_var($value, FILTER_VALIDATE_BOOLEAN);
-            }
-
-            if ($this->isInteger($value))
-            {
-                return (int) $value;
-            }
+        if (!is_string($value)) {
+            return $value;
         }
+
+        if ($this->isBool($value)) {
+            return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        if ($this->isInteger($value)) {
+            return (int) $value;
+        }
+
         return $value;
     }
 
