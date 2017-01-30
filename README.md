@@ -88,9 +88,9 @@ foreach($data->find('Hotel') as $hotel) {
     echo "Hotel ID: ".$hotel->attributes->HotelCode."\n";
 }
 
-foreach($data->children() as $hotel) {
-    if ($hotel->name == 'Hotel') {
-        echo "Hotel ID: ".$hotel->attributes->HotelCode."\n";
+foreach($data->children() as $tag) {
+    if ($tag->name == 'Hotel') {
+        echo "Hotel ID: ".$tag->attributes->HotelCode."\n";
     }
 }
 
