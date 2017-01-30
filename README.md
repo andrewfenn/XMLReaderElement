@@ -11,6 +11,7 @@ $input = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <HotelMessage Version="1.0"
               TimeStamp="2016-05-26T11:11:50">
+    <Message>Hello</Message>
     <Hotel HotelCode="3">
         <AvailableStatus>
             <StatusControl Start="2017-01-01" End="2017-01-02" InvTypeCode="999" RatePlanCode="888" />
@@ -58,8 +59,29 @@ object(Sabre\Xml\XMLReaderElement)#68 (3) {
 }
 */
 ```
+## Accessing a single child tag
 
-## Accessing Children tags
+```php
+echo "Message: ".$data->Message->value."\n";
+echo "Message Type: ".$data->Message->attributes->Type."\n";
+
+/* Returns...
+Message: Hello
+Message Type: Info
+*/
+```
+When accessing a single child tag like this it will return the first element it finds, for multiple children see below.
+
+```php
+echo "Hotel ID: ".$data->Hotel->attributes->HotelCode."\n";
+/* Returns...
+Hotel ID: 3
+*/
+
+```
+
+
+## Accessing multiple children tags
 ```php
 foreach($data->find('Hotel') as $hotel) {
     // Find a specific element's attribute
@@ -67,8 +89,9 @@ foreach($data->find('Hotel') as $hotel) {
 }
 
 foreach($data->children() as $hotel) {
-    // Find a specific element's attribute
-    echo "Hotel ID: ".$hotel->attributes->HotelCode."\n";
+    if ($hotel->name == 'Hotel') {
+        echo "Hotel ID: ".$hotel->attributes->HotelCode."\n";
+    }
 }
 
 /* Returns...
