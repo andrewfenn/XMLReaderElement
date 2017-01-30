@@ -37,12 +37,12 @@ class XMLReaderElement implements \Iterator {
             $this->value = [];
 
             foreach ($data['value'] as $value) {
-                $this->value[] = (new XMLReaderElement())->parse($value);
+                $this->value[] = (new self())->parse($value);
             }
         } elseif ($this->isElementValue($data['value'])) {
             $this->value = $this->convertValue($data['value']);
         } else {
-            $this->value = (new XMLReaderElement())->parse($data['value']);
+            $this->value = (new self())->parse($data['value']);
         }
 
         return $this;
@@ -92,50 +92,27 @@ class XMLReaderElement implements \Iterator {
         return $value;
     }
 
-    /* Very specific type of integer checking to ensure
-    that we have a number value, and not one that has been
-    mistakenly casted by PHP. Examples below.
-
-    var_dump(isInteger(23));    //bool(true)
-    var_dump(isInteger("23"));  //bool(true)
-    var_dump(isInteger(23.5));  //bool(false)
-    var_dump(isInteger(NULL));  //bool(false)
-    var_dump(isInteger(""));    //bool(false)
-    */
-    protected function isInteger($input) {
-        return (ctype_digit(strval($input)));
-    }
-
-    /* Very specific type of boolean checking to ensure
-    that we have a bool value, and not one that has been
-    mistakenly casted by PHP. Examples below.
-
-    var_dump(isBool(true));     //bool(true)
-    var_dump(isBool("false"));  //bool(true)
-    var_dump(isBool(0));        //bool(false)
-    var_dump(isBool(NULL));     //bool(false)
-    var_dump(isBool(""));       //bool(false)
-    */
-    protected function isBool($input) {
-        return in_array(strtolower($input), ['true', 'false']) !== false;
-    }
-
     public function children() {
-        if ($this->value instanceof XMLReaderElement) {
+        if ($this->value instanceof self) {
             return [$this->value];
         }
 
         if (is_array($this->value)) {
-            $results = [];
-            foreach ($this->value as $value) {
-                if ($value instanceof XMLReaderElement) {
-                    $results[] = $value;
-                }
-            }
-            return $results;
+            return $this->filterChildren($this->value);
         }
 
         return [];
+    }
+
+    protected function filterChildren(array $array) {
+
+        $results = [];
+        foreach ($array as $value) {
+            if ($value instanceof self) {
+                $results[] = $value;
+            }
+        }
+        return $results;
     }
 
     public function hasChildren() {
@@ -206,5 +183,33 @@ class XMLReaderElement implements \Iterator {
         }
 
         return $arr;
+    }
+
+    /* Very specific type of integer checking to ensure
+    that we have a number value, and not one that has been
+    mistakenly casted by PHP. Examples below.
+
+    var_dump(isInteger(23));    //bool(true)
+    var_dump(isInteger("23"));  //bool(true)
+    var_dump(isInteger(23.5));  //bool(false)
+    var_dump(isInteger(NULL));  //bool(false)
+    var_dump(isInteger(""));    //bool(false)
+    */
+    protected function isInteger($input) {
+        return (ctype_digit(strval($input)));
+    }
+
+    /* Very specific type of boolean checking to ensure
+    that we have a bool value, and not one that has been
+    mistakenly casted by PHP. Examples below.
+
+    var_dump(isBool(true));     //bool(true)
+    var_dump(isBool("false"));  //bool(true)
+    var_dump(isBool(0));        //bool(false)
+    var_dump(isBool(NULL));     //bool(false)
+    var_dump(isBool(""));       //bool(false)
+    */
+    protected function isBool($input) {
+        return in_array(strtolower($input), ['true', 'false']) !== false;
     }
 }
