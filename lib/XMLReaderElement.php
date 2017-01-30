@@ -139,8 +139,7 @@ class XMLReaderElement implements \Iterator {
         if (is_array($this->value)) {
             $results = [];
             foreach($this->value as $value) {
-                if ($value instanceof XMLReaderElement &&
-                                $this->namespace === $value->namespace) {
+                if ($value instanceof XMLReaderElement) {
                     $results[] = $value;
                 }
             }
