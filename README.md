@@ -24,6 +24,10 @@ Sabre XML is a great PHP library for XML reading, but it can be difficult to use
 
   Returns an array of this XMLReaderElement's children.
 
+* **```bool hasChildren( void )```**
+
+  If the element has any XMLReaderElement children
+
 ## Examples
 
 ```php
