@@ -1,13 +1,20 @@
 XMLReaderElement extension for Sabre/XML
 =========
 
+[![Software License](https://img.shields.io/badge/license-BSD-brightgreen.svg?style=flat-square)](LICENSE)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andrewfenn/XMLReaderElement/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/andrewfenn/XMLReaderElement/?branch=master)
+
+[![Total Downloads](https://img.shields.io/packagist/dd/andrewfenn/xmlreader.svg?style=flat-square)](https://packagist.org/packages/andrewfenn/xmlreader)
+[![Total Downloads](https://img.shields.io/packagist/dm/andrewfenn/xmlreader.svg?style=flat-square)](https://packagist.org/packages/andrewfenn/xmlreader)
+[![Total Downloads](https://img.shields.io/packagist/dt/andrewfenn/xmlreader.svg?style=flat-square)](https://packagist.org/packages/andrewfenn/xmlreader)
 
 The sabre/xml library is a specialized XML reader and writer for PHP which can be downloaded [here](http://sabre.io/xml/). This project is not associated with the sabre/xml project.
 
 Sabre XML is a great PHP library for XML reading, but it can be difficult to use and make your code unessesarily complicated when you have very simple XML to parse. Therefore I have made this small extension on top of sabre/xml that allows you to access the information more natually making it easier to get what you want done.
 
+## Install
 
+```composer require andrewfenn/xmlreader```
 
 
 ## Methods
