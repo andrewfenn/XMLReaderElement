@@ -36,6 +36,33 @@ class XMLReaderElement implements \Iterator {
 
     public function parse($data)
     {
+        $this->parseNameSpace($data);
+        $this->attributes = (object) $this->convertAttributes($data['attributes']);
+
+        if ($this->isElementArray($data['value'])) {
+            $this->value = [];
+
+            foreach ($data['value'] as $value) {
+                $this->value[] = (new XMLReaderElement())->parse($value);
+            }
+        } elseif ($this->isElementValue($data['value'])) {
+            $this->value = $this->convertValue($data['value']);
+        } else {
+            $this->value = (new XMLReaderElement())->parse($data['value']);
+        }
+
+        return $this;
+    }
+
+    protected function isElementArray($value) {
+        return is_array($value) && !array_key_exists('name', $value) && array_key_exists('name', current($value));
+    }
+
+    protected function isElementValue($value) {
+        return !is_array($value) || !array_key_exists('name', $value);
+    }
+
+    protected function parseNameSpace($data) {
         $namespace = [];
         preg_match_all('/{(.*?)}/', $data['name'], $namespace);
 
@@ -45,24 +72,10 @@ class XMLReaderElement implements \Iterator {
         } else {
             $this->name      = $data['name'];
         }
+    }
 
-        $this->attributes = (object) $this->convertAttributes($data['attributes']);
-        if (is_array($data['value']) && !array_key_exists('name', $data['value']) && array_key_exists('name', current($data['value']))) {
-            $this->value = [];
-            foreach ($data['value'] as $value) {
-                $this->value[] = (new XMLReaderElement())->parse($value);
-            }
-            return $this;
-        }
+    protected function parseAttributes($data) {
 
-        if (!is_array($data['value']) || !array_key_exists('name', $data['value'])) {
-            $this->value = $this->convertValue($data['value']);
-            return $this;
-        }
-
-        $this->value = (new XMLReaderElement())->parse($data['value']);
-
-        return $this;
     }
 
     protected function convertAttributes($attributes)
