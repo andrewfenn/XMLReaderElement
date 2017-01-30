@@ -6,6 +6,26 @@ The sabre/xml library is a specialized XML reader and writer for PHP which can b
 Sabre XML is a great PHP library for XML reading, but it can be difficult to use and make your code unessesarily complicated when you have very simple XML to parse. Therefore I have made this small extension on top of sabre/xml that allows you to access the information more natually making it easier to get what you want done.
 
 
+
+
+## Methods
+
+```XMLReaderElement``` provides the following methods...
+
+* **```array find( string )```**
+
+  Searches through all the children or attributes, and returns an array. If you are searching for a tag the array will be a list of XMLReaderElement elements. If you are searching for an attribute your array will be of the value it contains. To search for an attribute prepend an @ to the beginning of your search term.
+
+* **```mixed findFirst( string )```**
+
+  Searches through all the children or attributes and returns the first result found. If you are searching for a tag the result will be an XMLReaderElement. If you are searching for an attribute you will get that attributes value.
+
+* **```array children( void )```**
+
+  Returns an array of this XMLReaderElement's children.
+
+## Examples
+
 ```php
 $input = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -38,7 +58,8 @@ $reader->xml($input);
 // Parse in the reader object
 $data = (new \Sabre\Xml\XMLReaderElement())->parse($reader->parse());
 ```
-## Debugging
+
+### Debugging
 ```php
 // Start accessing the data you want
 var_dump($data);
@@ -59,7 +80,7 @@ object(Sabre\Xml\XMLReaderElement)#68 (3) {
 }
 */
 ```
-## Accessing a single child tag
+### Accessing a single child tag
 
 ```php
 echo "Message: ".$data->Message->value."\n";
@@ -80,8 +101,7 @@ Hotel ID: 3
 
 ```
 
-
-## Accessing multiple children tags
+### Accessing multiple children tags
 ```php
 foreach($data->find('Hotel') as $hotel) {
     // Find a specific element's attribute
@@ -102,12 +122,17 @@ Hotel ID: 7
 */
 ```
 
-## Finding an array of tags or attributes
+### Finding an array of tags or attributes
+
+The ```find()``` function will always return an array. Your search term must match exactly to that of the Tag or Attribute.
+
 ```php
+// You can search for any tag attribute by prepending an @ infront of the attribute's name like so...
 foreach($data->find('@HotelCode') as $hotel_code) {
     echo "Hotel Code: ".$hotel_code."\n";
 }
 
+// You can search for any tag like so...
 foreach($data->find('LengthsOfStay') as $los) {
     echo "Length of Stay: ".$los->findFirst('@Time')." Days\n";
 }
@@ -120,7 +145,7 @@ Length of Stay: 7 Days
 */
 ```
 
-## Picking up the first element or attribute
+### Picking up the first element or attribute
 ```php
 echo $data->findFirst('@TimeStamp')."\n";
 echo $data->findFirst('@HotelCode')."\n";
