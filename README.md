@@ -6,7 +6,7 @@ The sabre/xml library is a specialized XML reader and writer for PHP which can b
 Sabre XML is a great PHP library for XML reading, but it can be difficult to use and make your code unessesarily complicated when you have very simple XML to parse. Therefore I have made this small extension on top of sabre/xml that allows you to access the information more natually making it easier to get what you want done.
 
 
-```
+```php
 $input = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <HotelMessage Version="1.0"
@@ -38,7 +38,7 @@ $reader->xml($input);
 $data = (new \Sabre\Xml\XMLReaderElement())->parse($reader->parse());
 ```
 ## Debugging
-```
+```php
 // Start accessing the data you want
 var_dump($data);
 
@@ -60,7 +60,7 @@ object(Sabre\Xml\XMLReaderElement)#68 (3) {
 ```
 
 ## Accessing Children tags
-```
+```php
 foreach($data->find('Hotel') as $hotel) {
     // Find a specific element's attribute
     echo "Hotel ID: ".$hotel->attributes->HotelCode."\n";
@@ -80,7 +80,7 @@ Hotel ID: 7
 ```
 
 ## Finding an array of tags or attributes
-```
+```php
 foreach($data->find('@HotelCode') as $hotel_code) {
     echo "Hotel Code: ".$hotel_code."\n";
 }
@@ -98,7 +98,7 @@ Length of Stay: 7 Days
 ```
 
 ## Picking up the first element or attribute
-```
+```php
 echo $data->findFirst('@TimeStamp')."\n";
 echo $data->findFirst('@HotelCode')."\n";
 echo $data->findFirst('Hotel')->findFirst('@RatePlanCode')."\n";
