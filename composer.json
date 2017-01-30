@@ -2,7 +2,7 @@
     "name": "andrewfenn/xmlreader",
     "description" : "andrewfenn/xmlreader is an XML library that makes sabre/xml package easier to use",
     "keywords" : [ "XML", "XMLReader", "XMLWriter", "DOM" ],
-    "homepage" : "https://sabre.io/xml/",
+    "homepage" : "https://github.com/andrewfenn/XMLReaderElement",
     "license" : "BSD-3-Clause",
     "require" : {
         "php" : ">=5.5.5",
