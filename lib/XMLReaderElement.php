@@ -69,7 +69,7 @@ class XMLReaderElement implements \Iterator {
     }
 
     protected function convertAttributes($attributes) {
-        foreach($attributes as $k=>$attribute) {
+        foreach ($attributes as $k=>$attribute) {
             $attributes[$k] = $this->convertValue($attribute);
         }
 
@@ -103,7 +103,7 @@ class XMLReaderElement implements \Iterator {
     var_dump(isInteger(""));    //bool(false)
     */
     protected function isInteger($input) {
-        return(ctype_digit(strval($input)));
+        return (ctype_digit(strval($input)));
     }
 
     /* Very specific type of boolean checking to ensure
@@ -127,7 +127,7 @@ class XMLReaderElement implements \Iterator {
 
         if (is_array($this->value)) {
             $results = [];
-            foreach($this->value as $value) {
+            foreach ($this->value as $value) {
                 if ($value instanceof XMLReaderElement) {
                     $results[] = $value;
                 }
@@ -154,14 +154,23 @@ class XMLReaderElement implements \Iterator {
             $results[] = $this;
         }
 
-        foreach($this->children() as $child) {
+        foreach ($this->children() as $child) {
             $results = array_merge($results, $child->find($search));
         }
 
         if ($search[0] == '@') {
             $search = substr($search, 1);
-            if (property_exists($this->attributes, $search))
-                $results[] = $this->attributes->$search;
+            $results = array_merge($results, $this->findAttribute($search));
+        }
+
+        return $results;
+    }
+
+    protected function findAttribute($search) {
+
+        $results = [];
+        if (property_exists($this->attributes, $search)) {
+            $results[] = $this->attributes->$search;
         }
 
         return $results;
@@ -170,7 +179,7 @@ class XMLReaderElement implements \Iterator {
     public function __get($name) {
         /* Access the Elements Attributes */
         if (is_array($this->value)) {
-            foreach($this->value as $value) {
+            foreach ($this->value as $value) {
                 if ($value instanceof XMLReaderElement && $value->name == $name) {
                     return $value;
                 }
@@ -189,7 +198,7 @@ class XMLReaderElement implements \Iterator {
 
         if ($this->hasChildren()) {
             $names = [];
-            foreach($this->children() as $child) {
+            foreach ($this->children() as $child) {
                 $names[] = $child->name;
             }
 
