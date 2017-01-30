@@ -3,7 +3,6 @@ XMLReaderElement extension for Sabre/XML
 
 [![Software License](https://img.shields.io/badge/license-BSD-brightgreen.svg?style=flat-square)](LICENSE)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andrewfenn/XMLReaderElement/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/andrewfenn/XMLReaderElement/?branch=master)
-
 [![Total Downloads](https://img.shields.io/packagist/dd/andrewfenn/xmlreader.svg?style=flat-square)](https://packagist.org/packages/andrewfenn/xmlreader)
 [![Total Downloads](https://img.shields.io/packagist/dm/andrewfenn/xmlreader.svg?style=flat-square)](https://packagist.org/packages/andrewfenn/xmlreader)
 [![Total Downloads](https://img.shields.io/packagist/dt/andrewfenn/xmlreader.svg?style=flat-square)](https://packagist.org/packages/andrewfenn/xmlreader)
