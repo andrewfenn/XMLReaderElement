@@ -74,10 +74,6 @@ class XMLReaderElement implements \Iterator {
         }
     }
 
-    protected function parseAttributes($data) {
-
-    }
-
     protected function convertAttributes($attributes)
     {
         foreach($attributes as $k=>$attribute)
