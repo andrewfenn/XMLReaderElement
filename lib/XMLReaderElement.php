@@ -8,34 +8,28 @@ class XMLReaderElement implements \Iterator {
     protected $attributes;
     protected $value;
 
-    public function rewind()
-    {
+    public function rewind() {
         reset($this->value);
     }
 
-    public function current()
-    {
+    public function current() {
         return current($this->value);
     }
 
-    public function key()
-    {
+    public function key() {
         return key($this->value);
     }
 
-    public function next()
-    {
+    public function next() {
         return next($this->value);
     }
 
-    public function valid()
-    {
+    public function valid() {
         $key = key($this->value);
         return ($key !== NULL && $key !== FALSE);
     }
 
-    public function parse($data)
-    {
+    public function parse($data) {
         $this->parseNameSpace($data);
         $this->attributes = (object) $this->convertAttributes($data['attributes']);
 
@@ -74,8 +68,7 @@ class XMLReaderElement implements \Iterator {
         }
     }
 
-    protected function convertAttributes($attributes)
-    {
+    protected function convertAttributes($attributes) {
         foreach($attributes as $k=>$attribute)
         {
             $attributes[$k] = $this->convertValue($attribute);
@@ -110,8 +103,7 @@ class XMLReaderElement implements \Iterator {
     var_dump(isInteger(NULL));  //bool(false)
     var_dump(isInteger(""));    //bool(false)
     */
-    protected function isInteger($input)
-    {
+    protected function isInteger($input) {
         return(ctype_digit(strval($input)));
     }
 
@@ -125,13 +117,11 @@ class XMLReaderElement implements \Iterator {
     var_dump(isBool(NULL));     //bool(false)
     var_dump(isBool(""));       //bool(false)
     */
-    protected function isBool($input)
-    {
+    protected function isBool($input) {
         return in_array(strtolower($input), ['true', 'false']) !== false;
     }
 
-    public function children()
-    {
+    public function children() {
         if ($this->value instanceof XMLReaderElement) {
             return [$this->value];
         }
@@ -149,13 +139,11 @@ class XMLReaderElement implements \Iterator {
         return [];
     }
 
-    public function hasChildren()
-    {
+    public function hasChildren() {
         return !empty($this->children());
     }
 
-    public function findFirst($search)
-    {
+    public function findFirst($search) {
         return current($this->find($search));
     }
 
@@ -163,8 +151,9 @@ class XMLReaderElement implements \Iterator {
 
         $results = [];
 
-        if ($this->name == $search)
+        if ($this->name == $search) {
             $results[] = $this;
+        }
 
         foreach($this->children() as $child) {
             $results = array_merge($results, $child->find($search));
@@ -179,8 +168,7 @@ class XMLReaderElement implements \Iterator {
         return $results;
     }
 
-    public function __get($name)
-    {
+    public function __get($name) {
         /* Access the Elements Attributes */
         if (is_array($this->value)) {
             foreach($this->value as $value) {
