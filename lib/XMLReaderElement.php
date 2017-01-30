@@ -178,11 +178,13 @@ class XMLReaderElement implements \Iterator {
 
     public function __get($name) {
         /* Access the Elements Attributes */
-        if (is_array($this->value)) {
-            foreach ($this->value as $value) {
-                if ($value instanceof XMLReaderElement && $value->name == $name) {
-                    return $value;
-                }
+        if (!is_array($this->value)) {
+            return $this->$name;
+        }
+
+        foreach ($this->value as $value) {
+            if ($value instanceof XMLReaderElement && $value->name == $name) {
+                return $value;
             }
         }
 
