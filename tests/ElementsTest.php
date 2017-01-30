@@ -14,7 +14,7 @@ class ElementsTest extends \PHPUnit_Framework_TestCase {
 
         $this->reader = new \Sabre\Xml\Reader();
 
-        $input = <<<BLA
+        $input = <<<XML
 <?xml version="1.0"?>
 <root xmlns="http://sabredav.org/ns">
   <listThingy>
@@ -32,7 +32,7 @@ class ElementsTest extends \PHPUnit_Framework_TestCase {
     <elem3 />
   </otherThing>
 </root>
-BLA;
+XML;
 
         $this->reader->xml($input);
         $this->data = (new XMLReaderElement())->parse($this->reader->parse());
@@ -52,5 +52,26 @@ BLA;
 
     function testCanTraverseChildren() {
         $this->assertEquals('subnode', $this->data->findFirst('elem6')->children()[0]->name);
+    }
+
+    function testCanGetChildWithMagicFunction() {
+        $this->assertEquals('subnode', $this->data->findFirst('elem6')->subnode->name);
+    }
+
+    function testCanFindFirstAttribute() {
+        $this->assertEquals('val', $this->data->findFirst('@attr'));
+    }
+
+    function testCanFindAttribute() {
+        $arr = $this->data->find('@attr');
+
+        $this->assertCount(1, $arr);
+        $this->assertEquals('val', $arr[0]);
+    }
+
+    function testCanFindChild() {
+        $arr = $this->data->find('elem1');
+
+        $this->assertCount(2, $arr);
     }
 }
