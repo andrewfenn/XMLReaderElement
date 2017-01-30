@@ -121,14 +121,6 @@ class XMLReaderElement implements \Iterator {
         return in_array(strtolower($input), ['true', 'false']) !== false;
     }
 
-    public function filterNamespace($namespace) {
-        if (!is_array($namespace)) {
-            $namespace = [$namespace];
-        }
-
-        $this->filterNamespaces = $namespace;
-    }
-
     public function children()
     {
         if ($this->value instanceof XMLReaderElement) {
