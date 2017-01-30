@@ -104,7 +104,7 @@ class XMLReaderElement implements \Iterator {
         return [];
     }
 
-    protected function filterChildren(array $array) {
+    protected function filterChildren($array) {
 
         $results = [];
         foreach ($array as $value) {
