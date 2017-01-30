@@ -15,6 +15,9 @@
             "role" : "Developer"
         }
     ],
+    "support" : {
+        "source" : "https://github.com/andrewfenn/XMLReaderElement"
+    },
     "autoload" : {
         "psr-4" : {
             "Sabre\\Xml\\" : "lib/"
