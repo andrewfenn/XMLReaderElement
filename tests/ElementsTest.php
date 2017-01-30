@@ -27,9 +27,9 @@ class ElementsTest extends \PHPUnit_Framework_TestCase {
   </listThingy>
   <listThingy />
   <otherThing>
-    <elem1 />
-    <elem2 />
-    <elem3 />
+    <elem1>0</elem1>
+    <elem2>true</elem2>
+    <elem3>false</elem3>
   </otherThing>
 </root>
 XML;
@@ -73,5 +73,13 @@ XML;
         $arr = $this->data->find('elem1');
 
         $this->assertCount(2, $arr);
+    }
+
+    function testChildValues() {
+        $elem = $this->data->otherThing;
+
+        $this->assertEquals(0, $elem->elem1->value);
+        $this->assertTrue($elem->elem2->value);
+        $this->assertFalse($elem->elem3->value);
     }
 }

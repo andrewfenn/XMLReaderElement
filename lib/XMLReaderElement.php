@@ -178,7 +178,7 @@ class XMLReaderElement implements \Iterator {
 
     public function __get($name) {
         /* Access the Elements Attributes */
-        foreach($this->children() as $child) {
+        foreach ($this->children() as $child) {
             if ($child->name == $name) {
                 return $child;
             }
