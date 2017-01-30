@@ -13,7 +13,7 @@ Sabre XML is a great PHP library for XML reading, but it can be difficult to use
 
 ## Install
 
-```composer require andrewfenn/xmlreader```
+```composer require andrewfenn/xmlreader -v ~1.0.0```
 
 
 ## Methods
