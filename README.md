@@ -65,9 +65,11 @@ $data = (new \Sabre\Xml\XMLReaderElement())->parse($reader->parse());
 var_dump($data);
 
 /* Returns...
-object(Sabre\Xml\XMLReaderElement)#68 (3) {
+object(Sabre\Xml\XMLReaderElement)#68 (4) {
   ["name"]=>
   string(12) "HotelMessage"
+  ["namespace"]=>
+  string(0) ""
   ["attributes"]=>
   object(stdClass)#69 (2) {
     ["Version"]=>
@@ -76,7 +78,7 @@ object(Sabre\Xml\XMLReaderElement)#68 (3) {
     string(19) "2016-05-26T11:11:50"
   }
   ["children"]=>
-  string(11) "Hotel,Hotel"
+  string(19) "Message,Hotel,Hotel"
 }
 */
 ```

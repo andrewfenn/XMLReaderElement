@@ -149,6 +149,11 @@ class XMLReaderElement implements \Iterator {
         return [];
     }
 
+    public function hasChildren()
+    {
+        return !empty($this->children());
+    }
+
     public function findFirst($search)
     {
         return current($this->find($search));
@@ -190,17 +195,12 @@ class XMLReaderElement implements \Iterator {
 
     public function __debugInfo() {
 
-        $arr = ['name' => $this->name];
+        $arr = ['name'       => $this->name,
+                'namespace'  => $this->namespace,
+                'attributes' => $this->attributes
+                ];
 
-        if (!empty($this->namespace)) {
-            $arr['namespace'] = $this->namespace;
-        }
-
-        if (!empty($this->attributes)) {
-            $arr += ['attributes' => $this->attributes];
-        }
-
-        if (!empty($this->children())) {
+        if ($this->hasChildren()) {
             $names = [];
             foreach($this->children() as $child) {
                 $names[] = $child->name;
